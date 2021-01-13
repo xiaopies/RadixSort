@@ -23,7 +23,7 @@ public class Radix{
   public static void radixSortSimple(SortableLinkedList data){
     SortableLinkedList[] now= new SortableLinkedList[10];
     int counter = 0;
-    int biggest = 0;
+
     int size = 0;
     while (data.size() >0){
       int here = data.remove(counter);
@@ -43,20 +43,22 @@ public class Radix{
     SortableLinkedList[] two = new SortableLinkedList[10];
     merge(one, in);
     int counter =0;
-    int biggest = 0;
+
     while (one.size()>0){
       int here = one.remove(counter);
-      if (here< Math.pow(10, counter)){
-        int digit = 0;
-      }  else{
-        int digit = nth(here,sig);
+      int digit = 0;
+      if (here>= Math.pow(10, counter)){
+        digit = nth(here,sig);
       }
       two[digit].add(here);
       counter ++;
     }
     return two;
   }
-  public static void radixSort(SortableLinkedList data){}
+  public static void radixSort(SortableLinkedList data){
+
+
+  }
 
 
 }
