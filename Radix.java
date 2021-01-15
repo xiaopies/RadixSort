@@ -1,14 +1,11 @@
 public class Radix{
   public static int nth(int n, int col){
-    n = Math.abs(n);
-    double ten = Math.pow(10, col);
-    if (n<ten){
-      return -1;
+    int num = 0;
+    String cheat = "" + n;
+    if (length(n)>col) {
+      num =  Integer.parseInt(cheat.substring(cheat.length()-col-1, cheat.length()-col));
     }
-    else{
-      String cheat = "" + n;
-      return Integer.parseInt(cheat.substring(cheat.length()-col-1, cheat.length()-col));
-    }
+    return num;
   }
   public static int length(int n){
     n = Math.abs(n);
@@ -22,41 +19,31 @@ public class Radix{
   }
   public static void radixSortSimple(SortableLinkedList data){
     SortableLinkedList[] now= new SortableLinkedList[10];
-    int counter = 0;
-
-    int size = 0;
+    for (int i= 0; i<10; i++){
+      now[i] = new SortableLinkedList();
+    }
+    int biggie = 0;
     while (data.size() >0){
-      int here = data.remove(counter);
-      if (length(here)>size){
-        size = length(here);
+      int here = data.remove(0);
+      if (length(here)>biggie){
+        biggie = length(here);
       }
       int digit = nth(here, 0);
       now[digit].add(here);
-      counter ++;
     }
-    for (int i = 1; i< size; i++){
-      now = shush(now, i);
-    }
-  }
-  private static SortableLinkedList[] shush(SortableLinkedList[] in, int sig){
-    SortableLinkedList one = new SortableLinkedList();
-    SortableLinkedList[] two = new SortableLinkedList[10];
-    merge(one, in);
-    int counter =0;
-
-    while (one.size()>0){
-      int here = one.remove(counter);
-      int digit = 0;
-      if (here>= Math.pow(10, counter)){
-        digit = nth(here,sig);
+    merge (data, now);
+    for (int i = 1; i< biggie; i++){
+      while (data.size()> 0){
+        int here = data.remove(0);
+        int digit = nth(here, i);
+        now[digit].add(here);
       }
-      two[digit].add(here);
-      counter ++;
+      merge(data, now);
     }
-    return two;
   }
+
   public static void radixSort(SortableLinkedList data){
-    
+
   }
 
 
